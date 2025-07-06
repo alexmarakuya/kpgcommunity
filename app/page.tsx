@@ -264,7 +264,22 @@ export default function Page() {
               Submit Your Group
             </a>
             {/* Theme Toggle Switch */}
-            {/* Removed Toggle switch as Toggle.tsx was deleted */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>Light</span>
+              <button
+                className="px-3 py-1 rounded-full border text-xs font-medium transition-colors"
+                style={{
+                  background: theme === 'dark' ? 'var(--foreground)' : 'var(--card-bg)',
+                  color: theme === 'dark' ? 'var(--background)' : 'var(--foreground)',
+                  border: '1.5px solid var(--card-border)'
+                }}
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label="Toggle light/dark mode"
+              >
+                {theme === 'dark' ? '🌙' : '☀️'}
+              </button>
+              <span className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>Dark</span>
+            </div>
             <div className="text-xs mt-2 flex flex-col items-center gap-1" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
               <span>&copy; {currentYear} KPG Community</span>
               <span>Made with <span style={{ color: '#f87171' }}>❤️</span> for Koh Phangan</span>

@@ -182,13 +182,12 @@ export default function Page() {
               <div className="flex-1 min-w-0 relative z-10 text-left">
                 <h3 className="text-lg md:text-xl font-semibold mb-1 leading-relaxed" style={{ color: 'var(--foreground)' }}>KPG Co-Work & Connect — Weekly Coworking Meetup</h3>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
-                  <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM</span>
-                  <span className="hidden sm:inline mx-2">&bull;</span>
+                  <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
                   <a
                     href="https://maps.app.goo.gl/QCRXU9UnbjLTxQkE8"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-green-600 focus:text-green-700 transition-colors"
+                    className="hover:text-green-600 focus:text-green-700 transition-colors text-center"
                     style={{ color: 'var(--foreground)', textDecoration: 'none' }}
                   >
                     Crumbs Café, Thongsala, Koh Phangan
@@ -208,7 +207,7 @@ export default function Page() {
                     aria-expanded={detailsOpen}
                     aria-controls="event-details-desc"
                     onClick={() => setDetailsOpen((open) => !open)}
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2"
+                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
                     style={{
                       background: detailsOpen ? 'var(--background)' : 'var(--foreground)',
                       color: detailsOpen ? 'var(--foreground)' : 'var(--background)',
@@ -228,7 +227,7 @@ export default function Page() {
                   <a
                     href={icsDataUri}
                     download="KPG-Co-Work-Connect.ics"
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2"
+                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
                     style={{
                       background: 'transparent',
                       color: 'var(--foreground)',
@@ -250,7 +249,7 @@ export default function Page() {
                     href="https://maps.app.goo.gl/QCRXU9UnbjLTxQkE8"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2"
+                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
                     style={{
                       background: 'transparent',
                       color: 'var(--foreground)',
@@ -286,7 +285,7 @@ export default function Page() {
                 href={group.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-4 rounded-lg transition-all duration-200 cursor-pointer group"
+                className="block p-4 rounded-lg transition-all duration-200 cursor-pointer group text-left"
                 style={{
                   background: 'var(--card-bg)',
                   border: '1px solid var(--card-border)',
@@ -335,7 +334,7 @@ export default function Page() {
               <button
                 key={cat.id}
                 onClick={() => setActiveFilter(cat.id)}
-                className={`px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2`}
+                className={`px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center`}
                 style={{
                   minWidth: 80,
                   background: activeFilter === cat.id ? 'var(--foreground)' : 'transparent',
@@ -365,7 +364,7 @@ export default function Page() {
                 href={group.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-4 rounded-lg transition-all duration-200 cursor-pointer group"
+                className="block p-4 rounded-lg transition-all duration-200 cursor-pointer group text-left"
                 style={{
                   background: 'var(--card-bg)',
                   border: '1px solid var(--card-border)',
@@ -413,7 +412,7 @@ export default function Page() {
               href="https://alexduffner.notion.site/2282127878f58097a567e18246910787"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors border"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors border text-left"
               style={{
                 background: 'var(--card-bg)',
                 color: 'var(--foreground)',

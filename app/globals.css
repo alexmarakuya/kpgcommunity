@@ -1,8 +1,51 @@
 @import "tailwindcss";
 
 :root {
+  --background: #fdf7f2; /* lighter, warm cream */
+  --foreground: #232323; /* neutral dark gray */
+  --card-bg: #fffdfa;    /* almost white, slight warmth */
+  --card-border: #e5e1da; /* neutral light beige-gray */
+  --pill-bg: #f2eee7;    /* neutral light beige */
+  --pill-text: #6d5e3f;  /* neutral-warm dark taupe */
+  --pill-border: #e5e1da; /* neutral light beige-gray */
+  --wa-pill-bg: #e6f4ea;      /* WhatsApp pill bg (light) */
+  --wa-pill-text: #257a3e;   /* WhatsApp pill text (light) */
+  --wa-pill-border: #b7e2c3; /* WhatsApp pill border (light) */
+  --tg-pill-bg: #e6f0fa;     /* Telegram pill bg (light) */
+  --tg-pill-text: #2563eb;   /* Telegram pill text (light) */
+  --tg-pill-border: #b6d4f7; /* Telegram pill border (light) */
+}
+
+html.dark {
   --background: #0a1929;
   --foreground: #ffffff;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --pill-bg: #0f172a;
+  --pill-text: #38bdf8;
+  --pill-border: #334155;
+  --wa-pill-bg: #193c2b;      /* WhatsApp pill bg (dark) */
+  --wa-pill-text: #4ade80;   /* WhatsApp pill text (dark) */
+  --wa-pill-border: #256a3e; /* WhatsApp pill border (dark) */
+  --tg-pill-bg: #17233c;     /* Telegram pill bg (dark) */
+  --tg-pill-text: #60a5fa;   /* Telegram pill text (dark) */
+  --tg-pill-border: #2563eb; /* Telegram pill border (dark) */
+}
+
+html.light {
+  --background: #fdf7f2;
+  --foreground: #232323;
+  --card-bg: #fffdfa;
+  --card-border: #e5e1da;
+  --pill-bg: #f2eee7;
+  --pill-text: #6d5e3f;
+  --pill-border: #e5e1da;
+  --wa-pill-bg: #e6f4ea;
+  --wa-pill-text: #257a3e;
+  --wa-pill-border: #b7e2c3;
+  --tg-pill-bg: #e6f0fa;
+  --tg-pill-text: #2563eb;
+  --tg-pill-border: #b6d4f7;
 }
 
 @theme inline {
@@ -10,13 +53,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-source-code-pro);
   --font-mono: var(--font-source-code-pro);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a1929;
-    --foreground: #ffffff;
-  }
 }
 
 body {

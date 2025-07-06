@@ -16,12 +16,14 @@ export default function Page() {
     {
       id: 1,
       name: '💻🤗🌴 KPG Island Co-Work & Connect',
+      subtitle: 'Main community hub for co-working, networking, and island life discussions',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/your-main-group-link'
     },
     {
       id: 2,
       name: 'KPG Island Chats, Q&A + Recommendations',
+      subtitle: 'Ask questions, share recommendations, and get local insights from the community',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/kpg-island-chats-link',
       emoji: '💬'
@@ -32,6 +34,7 @@ export default function Page() {
     {
       id: 2,
       name: 'Nestra Phangan',
+      subtitle: 'Wellness retreats, yoga classes, and holistic healing practices',
       category: 'wellness',
       platform: 'telegram',
       link: 'https://t.me/nestra-phangan-link',
@@ -40,6 +43,7 @@ export default function Page() {
     {
       id: 3,
       name: 'Community Events',
+      subtitle: 'Stay updated on local events, parties, workshops, and community gatherings',
       category: 'events',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/community-events-link',
@@ -48,6 +52,7 @@ export default function Page() {
     {
       id: 4,
       name: 'Island Adventures',
+      subtitle: 'Explore hidden beaches, waterfalls, hiking trails, and outdoor activities',
       category: 'adventure',
       platform: 'telegram',
       link: 'https://t.me/island-adventures-link',
@@ -56,6 +61,7 @@ export default function Page() {
     {
       id: 5,
       name: 'Local Business Network',
+      subtitle: 'Connect with local entrepreneurs, share business opportunities, and support local economy',
       category: 'business',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/local-business-link',
@@ -64,6 +70,7 @@ export default function Page() {
     {
       id: 6,
       name: 'Wellness & Healing',
+      subtitle: 'Alternative healing, meditation, nutrition, and wellness practices on the island',
       category: 'wellness',
       platform: 'telegram',
       link: 'https://t.me/wellness-healing-link',
@@ -72,6 +79,7 @@ export default function Page() {
     {
       id: 7,
       name: 'Digital Nomads',
+      subtitle: 'Remote work tips, co-working spaces, and digital nomad lifestyle discussions',
       category: 'co-working',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/digital-nomads-link',
@@ -109,25 +117,31 @@ export default function Page() {
           <h2 className="text-2xl font-light text-white mb-6">Managed by KPG Community</h2>
           <div className="space-y-3">
             {kpgManagedGroups.map((group) => (
-              <div key={group.id} className="border border-slate-700 p-4 rounded-lg hover:border-slate-600 transition-colors bg-slate-800">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium text-white">
-                    <span className="mr-2">{group.emoji}</span>
-                    {group.name}
-                  </h3>
-                  <a
-                    href={group.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-green-400 hover:text-green-300 font-medium"
-                  >
-                    Join WhatsApp Group
+              <a
+                key={group.id}
+                href={group.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border border-slate-700 p-4 rounded-lg hover:border-slate-600 hover:bg-slate-750 transition-all duration-200 bg-slate-800 cursor-pointer group"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-medium text-white group-hover:text-slate-200 transition-colors mb-1">
+                      <span className="mr-2">{group.emoji}</span>
+                      {group.name}
+                    </h3>
+                    <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                      {group.subtitle}
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center gap-1 bg-green-900/30 text-green-400 group-hover:text-green-300 font-medium transition-colors ml-4 text-sm px-3 py-1 rounded-full border border-green-700/30 group-hover:border-green-600/50">
+                    WhatsApp
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
-                  </a>
+                  </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>
@@ -158,29 +172,35 @@ export default function Page() {
           {/* Filtered Groups List */}
           <div className="space-y-3">
             {filteredGroups.map((group) => (
-              <div key={group.id} className="border border-slate-700 p-4 rounded-lg hover:border-slate-600 transition-colors bg-slate-800">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium text-white">
-                    <span className="mr-2">{group.emoji}</span>
-                    {group.name}
-                  </h3>
-                  <a
-                    href={group.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 font-medium ${
-                      group.platform === 'whatsapp'
-                        ? 'text-green-400 hover:text-green-300'
-                        : 'text-blue-400 hover:text-blue-300'
-                    }`}
-                  >
-                    Join {group.platform === 'whatsapp' ? 'WhatsApp' : 'Telegram'} Group
+              <a
+                key={group.id}
+                href={group.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border border-slate-700 p-4 rounded-lg hover:border-slate-600 hover:bg-slate-750 transition-all duration-200 bg-slate-800 cursor-pointer group"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-medium text-white group-hover:text-slate-200 transition-colors mb-1">
+                      <span className="mr-2">{group.emoji}</span>
+                      {group.name}
+                    </h3>
+                    <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                      {group.subtitle}
+                    </p>
+                  </div>
+                  <div className={`inline-flex items-center gap-1 font-medium transition-colors ml-4 text-sm px-3 py-1 rounded-full border ${
+                    group.platform === 'whatsapp'
+                      ? 'bg-green-900/30 text-green-400 group-hover:text-green-300 border-green-700/30 group-hover:border-green-600/50'
+                      : 'bg-blue-900/30 text-blue-400 group-hover:text-blue-300 border-blue-700/30 group-hover:border-blue-600/50'
+                  }`}>
+                    {group.platform === 'whatsapp' ? 'WhatsApp' : 'Telegram'}
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
-                  </a>
+                  </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>

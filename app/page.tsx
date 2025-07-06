@@ -9,7 +9,7 @@ const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro'
 });
 
-export default function Home() {
+export default function Page() {
   const [activeFilter, setActiveFilter] = useState('all');
 
   const kpgManagedGroups = [

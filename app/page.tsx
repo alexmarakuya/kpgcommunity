@@ -18,14 +18,14 @@ export default function Page() {
       name: '💻🤗🌴 KPG Island Co-Work & Connect',
       subtitle: 'Main community hub for co-working, networking, and island life discussions',
       platform: 'whatsapp',
-      link: 'https://chat.whatsapp.com/your-main-group-link'
+      link: 'https://chat.whatsapp.com/IqAD6c5qL0FCuVA8ws89dv'
     },
     {
       id: 2,
       name: 'KPG Island Chats, Q&A + Recommendations',
       subtitle: 'Ask questions, share recommendations, and get local insights from the community',
       platform: 'whatsapp',
-      link: 'https://chat.whatsapp.com/kpg-island-chats-link',
+      link: 'https://chat.whatsapp.com/IOXBJVkAHGy1SluqOwVIUi',
       emoji: '💬'
     }
   ];

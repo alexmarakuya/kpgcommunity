@@ -10,6 +10,16 @@ const sourceCodePro = Source_Code_Pro({
 export const metadata: Metadata = {
   title: "KPG Community",
   description: "KPG Island Connection - Community groups and resources",
+  openGraph: {
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "KPG Community - Koh Phangan jungle scene"
+      }
+    ]
+  }
 };
 
 export default function RootLayout({

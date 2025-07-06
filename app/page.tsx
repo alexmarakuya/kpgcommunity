@@ -46,7 +46,8 @@ export default function Page() {
       subtitle: 'Meetups and networking for digital nomads on Koh Phangan',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/DIKLAPYAQIHL2EfhumGPGb',
-      emoji: '🤝'
+      emoji: '🤝',
+      category: 'networking',
     },
     {
       id: 2,
@@ -54,7 +55,8 @@ export default function Page() {
       subtitle: 'Main WhatsApp group for digital nomads on the island',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/Fp23RHoQ0tfDNbDLkq1hSb',
-      emoji: '💻'
+      emoji: '💻',
+      category: 'digital-nomads',
     },
     {
       id: 3,
@@ -62,7 +64,8 @@ export default function Page() {
       subtitle: 'Visa questions, border runs, and legal tips for nomads',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/IdBv9yNO5Ha55RRLeaPjnl',
-      emoji: '🛂'
+      emoji: '🛂',
+      category: 'visa',
     },
     {
       id: 4,
@@ -70,7 +73,8 @@ export default function Page() {
       subtitle: 'Find and share housing opportunities on the island',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/KsuuzQpZ43dExS1lnReiOe',
-      emoji: '🏠'
+      emoji: '🏠',
+      category: 'housing',
     },
     {
       id: 5,
@@ -78,11 +82,25 @@ export default function Page() {
       subtitle: 'A group for AI enthusiasts, builders, and curious minds on Koh Phangan',
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/EHuLy3KfzA93P5NYU3w9Xl',
-      emoji: '🤖'
-    }
+      emoji: '🤖',
+      category: 'ai',
+    },
   ];
 
-  const filteredGroups = otherGroups;
+  const groupCategories = [
+    { id: 'all', label: 'All' },
+    { id: 'networking', label: 'Networking' },
+    { id: 'digital-nomads', label: 'Digital Nomads' },
+    { id: 'visa', label: 'Visa' },
+    { id: 'housing', label: 'Housing' },
+    { id: 'ai', label: 'AI' },
+  ];
+
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filteredGroups = activeFilter === 'all'
+    ? otherGroups
+    : otherGroups.filter(group => group.category === activeFilter);
 
   const currentYear = new Date().getFullYear();
 
@@ -151,7 +169,23 @@ export default function Page() {
         {/* Other Communities Section */}
         <section>
           <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>Other Communities</h2>
-          
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {groupCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
+                className={`px-3 py-1 rounded-full font-medium transition-colors border text-xs ${
+                  activeFilter === cat.id
+                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)]'
+                    : 'bg-transparent text-[var(--foreground)] border-[var(--card-border)] hover:bg-[var(--card-bg)]'
+                }`}
+                style={{ minWidth: 80 }}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
           {/* Filtered Groups List */}
           <div className="space-y-3">
             {filteredGroups.map((group) => (
@@ -229,28 +263,8 @@ export default function Page() {
               </svg>
               Submit Your Group
             </a>
-            <button
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors border"
-              style={{
-                background: 'var(--card-bg)',
-                color: 'var(--foreground)',
-                border: '1px solid var(--card-border)'
-              }}
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              aria-label="Toggle light/dark mode"
-            >
-              {theme === 'dark' ? (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-8.66l-.71.71M4.05 19.07l-.71.71M21 12h-1M4 12H3m16.95 7.07l-.71-.71M6.34 6.34l-.71-.71" /></svg>
-                  <span style={{ color: 'var(--foreground)' }}>Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" /></svg>
-                  <span style={{ color: 'var(--foreground)' }}>Dark Mode</span>
-                </>
-              )}
-            </button>
+            {/* Theme Toggle Switch */}
+            {/* Removed Toggle switch as Toggle.tsx was deleted */}
             <div className="text-xs mt-2 flex flex-col items-center gap-1" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
               <span>&copy; {currentYear} KPG Community</span>
               <span>Made with <span style={{ color: '#f87171' }}>❤️</span> for Koh Phangan</span>

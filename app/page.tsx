@@ -405,6 +405,43 @@ export default function Page() {
         </section>
       </main>
 
+      {/* Cowork Map CTA Banner */}
+      <div className="max-w-4xl mx-auto px-6 mb-8">
+        <div className="rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 p-6"
+          style={{
+            background: 'var(--card-bg)',
+            border: '1.5px solid var(--card-border)'
+          }}>
+          <div className="flex-1 text-left">
+            <h3 className="text-lg md:text-xl font-semibold mb-1" style={{ color: 'var(--foreground)' }}>Best Coworking Spots on Koh Phangan</h3>
+            <p className="text-sm mb-2 max-w-xl" style={{ color: 'var(--foreground)', opacity: 0.85 }}>
+              Explore a curated map of the island's top cafes, coworking spaces, and friendly work spots. Find your next favorite place to get things done!
+            </p>
+          </div>
+          <a
+            href="https://maps.app.goo.gl/zJmTdoGuw11tkJyY7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-2 rounded-lg font-semibold text-sm shadow border transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
+            style={{
+              background: 'var(--foreground)',
+              color: 'var(--background)',
+              borderColor: 'var(--foreground)'
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.background = 'var(--card-border)';
+              e.currentTarget.style.color = 'var(--foreground)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.background = 'var(--foreground)';
+              e.currentTarget.style.color = 'var(--background)';
+            }}
+            title="Open Coworking Map"
+          >
+            Open Map
+          </a>
+        </div>
+      </div>
       <footer className="py-8" style={{ borderTop: '1px solid var(--card-border)' }}>
         <div className="max-w-4xl mx-auto px-6">
           <div className="flex flex-col items-center gap-4 justify-center">

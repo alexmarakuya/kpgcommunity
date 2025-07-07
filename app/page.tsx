@@ -501,11 +501,11 @@ export default function Page() {
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={theme === 'dark'}
-                  onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                checked={theme === 'dark'}
+                onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   className="sr-only peer"
                   aria-label="Toggle light/dark mode"
-                />
+              />
                 <div
                   className="w-11 h-6 rounded-lg transition-colors duration-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[var(--foreground)] border"
                   style={{

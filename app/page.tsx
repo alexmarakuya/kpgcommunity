@@ -47,7 +47,8 @@ export default function Page() {
       platform: 'whatsapp',
       link: 'https://chat.whatsapp.com/DIKLAPYAQIHL2EfhumGPGb',
       emoji: '🤝',
-      category: 'networking',
+      category: 'social',
+      tags: ['networking', 'social'],
     },
     {
       id: 2,
@@ -71,8 +72,8 @@ export default function Page() {
       id: 4,
       name: 'Koh Phangan Housing',
       subtitle: 'Find and share housing opportunities on the island',
-      platform: 'whatsapp',
-      link: 'https://chat.whatsapp.com/KsuuzQpZ43dExS1lnReiOe',
+      platform: 'telegram',
+      link: 'https://t.me/kohphanganrentals',
       emoji: '🏠',
       category: 'housing',
     },
@@ -89,8 +90,7 @@ export default function Page() {
 
   const groupCategories = [
     { id: 'all', label: 'All' },
-    { id: 'networking', label: 'Networking' },
-    { id: 'digital-nomads', label: 'Digital Nomads' },
+    { id: 'social', label: 'Social' },
     { id: 'visa', label: 'Visa' },
     { id: 'housing', label: 'Housing' },
     { id: 'ai', label: 'AI' },
@@ -104,8 +104,21 @@ export default function Page() {
 
   const currentYear = new Date().getFullYear();
 
-  // ICS file content for the event
-  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:20240711T100000\nDTEND;TZID=Asia/Bangkok:20240711T160000\nRRULE:FREQ=WEEKLY;BYDAY=TH\nLOCATION:Crumbs Café, Thongsala, Koh Phangan\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed beachfront setting. Fast Wi-Fi, inspiring people, optional lunch together.\nURL:https://maps.app.goo.gl/QCRXU9UnbjLTxQkE8\nEND:VEVENT\nEND:VCALENDAR`;
+  // ICS file content for the event (single occurrence, current event date, location is Google Maps link)
+  // Calculate next Thursday's date in YYYYMMDD format
+  function getNextThursdayDateString() {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const daysUntilThursday = (4 - dayOfWeek + 7) % 7 || 7;
+    const nextThursday = new Date(today);
+    nextThursday.setDate(today.getDate() + daysUntilThursday);
+    const yyyy = nextThursday.getFullYear();
+    const mm = String(nextThursday.getMonth() + 1).padStart(2, '0');
+    const dd = String(nextThursday.getDate()).padStart(2, '0');
+    return `${yyyy}${mm}${dd}`;
+  }
+  const eventDate = getNextThursdayDateString();
+  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:${eventDate}T100000\nDTEND;TZID=Asia/Bangkok:${eventDate}T160000\nLOCATION:https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed setting. For more details check our website: www.kpgcommunity.com\nEND:VEVENT\nEND:VCALENDAR`;
   const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
 
   // Calculate next Thursday's date
@@ -184,13 +197,13 @@ export default function Page() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
                   <a
-                    href="https://maps.app.goo.gl/QCRXU9UnbjLTxQkE8"
+                    href="https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-green-600 focus:text-green-700 transition-colors text-center"
+                    className="hover:text-green-600 focus:text-green-700 transition-colors"
                     style={{ color: 'var(--foreground)', textDecoration: 'none' }}
                   >
-                    Crumbs Café, Thongsala, Koh Phangan
+                    Martial Arts Academy, Woktum, Koh Phangan
                   </a>
                 </div>
                 <div
@@ -198,7 +211,7 @@ export default function Page() {
                   aria-hidden={!detailsOpen}
                 >
                   <p className="text-sm leading-relaxed" style={{ color: 'var(--foreground)', opacity: 0.85 }}>
-                    Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed beachfront setting. Fast Wi-Fi, inspiring people, optional lunch together.
+                    KPG Island Co-Work & Connect – a free weekly event hosted every Thursday for creatives, nomads & entrepreneurs on Koh Phangan. Join us for a day of productivity, connection, and collaboration at the island's best co-working spots.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 mt-3">
@@ -209,8 +222,8 @@ export default function Page() {
                     onClick={() => setDetailsOpen((open) => !open)}
                     className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
                     style={{
-                      background: detailsOpen ? 'var(--background)' : 'var(--foreground)',
-                      color: detailsOpen ? 'var(--foreground)' : 'var(--background)',
+                      background: 'var(--foreground)',
+                      color: 'var(--background)',
                       borderColor: 'var(--foreground)',
                     }}
                     onMouseOver={e => {
@@ -218,11 +231,23 @@ export default function Page() {
                       e.currentTarget.style.color = 'var(--foreground)';
                     }}
                     onMouseOut={e => {
-                      e.currentTarget.style.background = detailsOpen ? 'var(--background)' : 'var(--foreground)';
-                      e.currentTarget.style.color = detailsOpen ? 'var(--foreground)' : 'var(--background)';
+                      e.currentTarget.style.background = 'var(--foreground)';
+                      e.currentTarget.style.color = 'var(--background)';
                     }}
                   >
-                    {detailsOpen ? 'Hide Details' : 'Show Details'}
+                    <span className="inline-flex items-center gap-1">
+                      {detailsOpen ? 'Hide Details' : 'Show Details'}
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${detailsOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
                   </button>
                   <a
                     href={icsDataUri}
@@ -246,7 +271,7 @@ export default function Page() {
                     Add to Calendar
                   </a>
                   <a
-                    href="https://maps.app.goo.gl/QCRXU9UnbjLTxQkE8"
+                    href="https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"

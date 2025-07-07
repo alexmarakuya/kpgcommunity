@@ -86,6 +86,15 @@ export default function Page() {
       emoji: '🤖',
       category: 'ai',
     },
+    {
+      id: 6,
+      name: 'Flow Phangan',
+      subtitle: 'Pop-up community for engineers & digital nomads on Koh Phangan.',
+      platform: 'telegram',
+      link: 'https://t.me/c/2482920597/1',
+      emoji: '🌊',
+      category: 'social',
+    },
   ];
 
   const groupCategories = [
@@ -302,7 +311,7 @@ export default function Page() {
       <main className="max-w-4xl mx-auto px-6 pt-0 pb-12">
         {/* KPG Managed Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>Join our WhatsApp Groups.</h2>
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>Join our WhatsApp Groups</h2>
           <div className="space-y-3">
             {kpgManagedGroups.map((group) => (
               <a

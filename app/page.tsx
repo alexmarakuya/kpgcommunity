@@ -11,6 +11,19 @@ const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro'
 });
 
+// Add a type for group objects
+
+type Group = {
+  id: number;
+  name: string;
+  subtitle: string;
+  platform: string;
+  link: string;
+  emoji: string;
+  category: string;
+  tags?: string[];
+};
+
 export default function Page() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -67,7 +80,7 @@ export default function Page() {
     }
   ];
 
-  const otherGroups = [
+  const otherGroups: Group[] = [
     {
       id: 1,
       name: 'Nomad Meets',
@@ -76,7 +89,7 @@ export default function Page() {
       link: 'https://chat.whatsapp.com/DIKLAPYAQIHL2EfhumGPGb',
       emoji: '🤝',
       category: 'social',
-      tags: ['networking', 'social'],
+      // tags: ['networking', 'social'], // Removed tags for Nomad Meets
     },
     {
       id: 2,
@@ -483,9 +496,9 @@ export default function Page() {
                       >
                         {group.platform === 'whatsapp' ? 'WhatsApp' : 'Telegram'}
                       </div>
-                      {group.tags && group.tags.length > 0 && (
+                      {group.tags && Array.isArray(group.tags) && group.tags.length > 0 && (
                         <div className="flex gap-2 flex-wrap mb-2 justify-center">
-                          {group.tags.map((tag) => (
+                          {group.tags.map((tag: string) => (
                             <span
                               key={tag}
                               className="inline-block px-3 py-1 rounded-full text-xs font-semibold border border-[var(--card-border)] bg-[var(--foreground)] text-[var(--background)] shadow-sm uppercase tracking-wide"

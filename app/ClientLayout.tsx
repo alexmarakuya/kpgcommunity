@@ -21,5 +21,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     posthog.capture('$pageview');
   }, [pathname]);
 
+  useEffect(() => {
+    const handlePageLeave = () => {
+      posthog.capture('$pageleave');
+    };
+    window.addEventListener('beforeunload', handlePageLeave);
+    return () => {
+      window.removeEventListener('beforeunload', handlePageLeave);
+    };
+  }, []);
+
   return <>{children}</>;
 } 

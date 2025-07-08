@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Source_Code_Pro } from 'next/font/google';
+import { Transition } from 'react-transition-group';
+// Removed: import { Analytics } from '@vercel/analytics/react';
 
 const sourceCodePro = Source_Code_Pro({ 
   subsets: ['latin'],
@@ -14,12 +16,38 @@ export default function Page() {
 
   const [detailsOpen, setDetailsOpen] = useState(false);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalHostIdx, setModalHostIdx] = useState<number|null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.classList.remove('dark', 'light');
       document.documentElement.classList.add(theme);
     }
   }, [theme]);
+
+  // Close modal on Escape
+  useEffect(() => {
+    if (!modalOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setModalOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [modalOpen]);
+
+  // Close modal on outside click
+  useEffect(() => {
+    if (!modalOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        setModalOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [modalOpen]);
 
   const kpgManagedGroups = [
     {
@@ -142,6 +170,34 @@ export default function Page() {
   const nextThursday = getNextThursday();
   const monthShort = nextThursday.toLocaleString('en-US', { month: 'short' }).toUpperCase();
   const dayNum = nextThursday.getDate().toString().padStart(2, '0');
+
+  // Meet the Hosts data
+  const hosts = [
+    {
+      name: 'Sophie Biggerstaff',
+      image: '/sophie-biggerstaff.jpg',
+      role: 'Business coach, entrepreneur, community builder',
+      short: 'A business coach helping purpose-driven founders build online businesses that create more freedom, income, and impact — without burning out.',
+      long: 'As a long-term digital nomad, multi-entrepreneur, podcaster, and community builder, Sophie is passionate about creating spaces for connection, growth, and support wherever she goes. She loves empowering others to reach their goals and thrive in supportive communities.',
+      link: 'https://itssophiebiggerstaff.com',
+    },
+    {
+      name: 'Alex Duffner',
+      image: '/alex-duffner.jpg',
+      role: 'Creative entrepreneur, community builder, visionary',
+      short: 'Creative entrepreneur and community builder passionate about designing spaces—both physical and digital—that foster connection, growth, and collaboration.',
+      long: 'Founder of NAM and KPG Community, Alex brings people together to collaborate, share, and thrive on Koh Phangan. He is dedicated to creating environments where people can connect, learn, and co-create a vibrant community.',
+      link: 'https://www.nam.space',
+    },
+    {
+      name: 'Maya Lee',
+      image: '/path-to-maya.jpg',
+      role: 'Wellness coach, event organizer',
+      short: 'Helping digital nomads and creatives find balance, wellness, and inspiration on the island through mindful experiences and supportive community.',
+      long: 'Maya is a wellness coach and event organizer who curates experiences for growth, mindfulness, and connection. She loves supporting others on their journey to a healthy, fulfilling lifestyle, and believes in the importance of community for well-being and creativity.',
+      link: 'https://mayaleewellness.com',
+    },
+  ];
 
   return (
     <div className={`min-h-screen ${sourceCodePro.variable} font-mono`}>
@@ -412,7 +468,7 @@ export default function Page() {
                         {group.name}
                       </h3>
                       <div
-                        className="inline-flex items-center font-medium transition-colors text-xs px-2 py-0.5 rounded-full"
+                        className="inline-flex items-center font-medium transition-colors text-xs px-3 py-0.5 rounded-full border border-[var(--card-border)] shadow-sm mr-2"
                         style={
                           group.platform === 'whatsapp'
                             ? {
@@ -427,6 +483,25 @@ export default function Page() {
                       >
                         {group.platform === 'whatsapp' ? 'WhatsApp' : 'Telegram'}
                       </div>
+                      {group.tags && group.tags.length > 0 && (
+                        <div className="flex gap-2 flex-wrap mb-2 justify-center">
+                          {group.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="inline-block px-3 py-1 rounded-full text-xs font-semibold border border-[var(--card-border)] bg-[var(--foreground)] text-[var(--background)] shadow-sm uppercase tracking-wide"
+                              style={{
+                                letterSpacing: '0.05em',
+                                background: 'var(--foreground)',
+                                color: 'var(--background)',
+                                borderColor: 'var(--foreground)',
+                                boxShadow: '0 1px 2px 0 rgba(0,0,0,0.04)'
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <p className="text-sm group-hover:opacity-80 transition-colors" style={{color: 'var(--foreground)', opacity: 0.7}}>
                       {group.subtitle}
@@ -476,6 +551,12 @@ export default function Page() {
           </a>
         </div>
       </div>
+
+      {/*
+         Meet the Hosts section and modal are hidden for now.
+         To restore, uncomment this block and its contents.
+       */}
+
       <footer className="py-8" style={{ borderTop: '1px solid var(--card-border)' }}>
         <div className="max-w-4xl mx-auto px-6">
           <div className="flex flex-col items-center gap-4 justify-center">
@@ -540,6 +621,7 @@ export default function Page() {
           </div>
         </div>
       </footer>
+      {/* Removed Analytics component */}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Source_Code_Pro } from "next/font/google";
 import "./globals.css";
+import ClientLayout from "./ClientLayout";
 
 const sourceCodePro = Source_Code_Pro({
   variable: "--font-source-code-pro",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,17 +24,11 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body
-        className={`${sourceCodePro.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={sourceCodePro.variable}>
+      <body>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Source_Code_Pro } from 'next/font/google';
-import { Transition } from 'react-transition-group';
+// import { Transition } from 'react-transition-group';
 // Removed: import { Analytics } from '@vercel/analytics/react';
 
 const sourceCodePro = Source_Code_Pro({ 
@@ -274,15 +274,7 @@ export default function Page() {
                 <h3 className="text-lg md:text-xl font-semibold mb-1 leading-relaxed" style={{ color: 'var(--foreground)' }}>KPG Co-Work & Connect — Weekly Coworking Meetup</h3>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
-                  <a
-                    href="https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-green-600 focus:text-green-700 transition-colors"
-                    style={{ color: 'var(--foreground)', textDecoration: 'none' }}
-                  >
-                    Martial Arts Academy, Woktum, Koh Phangan
-                  </a>
+                  <span className="font-medium">Location: TBD</span>
                 </div>
                 <div
                   className={`transition-all duration-500 ease-in-out overflow-hidden mb-3 max-w-2xl ${detailsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
@@ -348,28 +340,7 @@ export default function Page() {
                   >
                     Add to Calendar
                   </a>
-                  <a
-                    href="https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--foreground)',
-                      borderColor: 'var(--foreground)',
-                    }}
-                    onMouseOver={e => {
-                      e.currentTarget.style.background = 'var(--card-border)';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    title="Show Location on Map"
-                  >
-                    Show Location
-                  </a>
+                  {/* Location links and buttons hidden for now */}
                 </div>
               </div>
             </div>

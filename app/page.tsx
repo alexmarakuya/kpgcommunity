@@ -136,6 +136,16 @@ export default function Page() {
       emoji: '🌊',
       category: 'social',
     },
+    {
+      id: 7,
+      name: 'Thailand Visa Advice',
+      subtitle: 'Facebook group for visa questions and advice in Thailand',
+      platform: 'facebook',
+      link: 'https://www.facebook.com/groups/thailandvisaadvice/?ref=share&rdid=VpV27rbEzw7o9piQ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fg%2F1EciD7NCtR%2F',
+      emoji: '📄',
+      category: 'visa',
+      // tags: ['Facebook Group'], // Removed Facebook Group tag
+    },
   ];
 
   const groupCategories = [
@@ -154,7 +164,25 @@ export default function Page() {
 
   const currentYear = new Date().getFullYear();
 
-  // ICS file content for the event (single occurrence, current event date, location is Google Maps link)
+  // Internal database of event locations
+  const eventLocations = [
+    {
+      name: "Tiki Beach",
+      address: "Tiki Beach, Koh Phangan",
+      mapsUrl: "https://maps.app.goo.gl/xc8ARnzBA4wKMMHt5"
+    },
+    {
+      name: "Martial Arts Academy",
+      address: "Martial Arts Academy, Woktum, Koh Phangan",
+      mapsUrl: "https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6"
+    },
+    // Add more locations as needed
+  ];
+
+  // Set the current location (change index as needed)
+  const currentLocation = eventLocations[0];
+
+  // ICS file content for the event (single occurrence, current event date, location is currentLocation)
   // Calculate next Thursday's date in YYYYMMDD format
   function getNextThursdayDateString() {
     const today = new Date();
@@ -168,7 +196,7 @@ export default function Page() {
     return `${yyyy}${mm}${dd}`;
   }
   const eventDate = getNextThursdayDateString();
-  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:${eventDate}T100000\nDTEND;TZID=Asia/Bangkok:${eventDate}T160000\nLOCATION:https://maps.app.goo.gl/xPDbWpxNKpQGPh4P6\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed setting. For more details check our website: www.kpgcommunity.com\nEND:VEVENT\nEND:VCALENDAR`;
+  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:${eventDate}T100000\nDTEND;TZID=Asia/Bangkok:${eventDate}T160000\nLOCATION:${currentLocation.address} (${currentLocation.mapsUrl})\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed setting. For more details check our website: www.kpgcommunity.com\nEND:VEVENT\nEND:VCALENDAR`;
   const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
 
   // Calculate next Thursday's date
@@ -274,7 +302,15 @@ export default function Page() {
                 <h3 className="text-lg md:text-xl font-semibold mb-1 leading-relaxed" style={{ color: 'var(--foreground)' }}>KPG Co-Work & Connect — Weekly Coworking Meetup</h3>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
-                  <span className="font-medium">Location: TBD</span>
+                  <a
+                    href={currentLocation.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-green-600 focus:text-green-700 transition-colors"
+                    style={{ color: 'var(--foreground)', textDecoration: 'none' }}
+                  >
+                    {currentLocation.address}
+                  </a>
                 </div>
                 <div
                   className={`transition-all duration-500 ease-in-out overflow-hidden mb-3 max-w-2xl ${detailsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
@@ -340,7 +376,28 @@ export default function Page() {
                   >
                     Add to Calendar
                   </a>
-                  {/* Location links and buttons hidden for now */}
+                  <a
+                    href={currentLocation.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
+                    style={{
+                      background: 'transparent',
+                      color: 'var(--foreground)',
+                      borderColor: 'var(--foreground)',
+                    }}
+                    onMouseOver={e => {
+                      e.currentTarget.style.background = 'var(--card-border)';
+                      e.currentTarget.style.color = 'var(--foreground)';
+                    }}
+                    onMouseOut={e => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'var(--foreground)';
+                    }}
+                    title="Show Location on Map"
+                  >
+                    Show Location
+                  </a>
                 </div>
               </div>
             </div>
@@ -459,13 +516,26 @@ export default function Page() {
                                 background: 'var(--wa-pill-bg)',
                                 color: 'var(--wa-pill-text)'
                               }
-                            : {
+                            : group.platform === 'telegram'
+                            ? {
                                 background: 'var(--tg-pill-bg)',
                                 color: 'var(--tg-pill-text)'
                               }
+                            : group.platform === 'facebook'
+                            ? {
+                                background: 'var(--fb-pill-bg)', // Use a CSS variable for Facebook pill bg
+                                color: 'var(--fb-pill-text)'
+                              }
+                            : {}
                         }
                       >
-                        {group.platform === 'whatsapp' ? 'WhatsApp' : 'Telegram'}
+                        {group.platform === 'whatsapp'
+                          ? 'WhatsApp'
+                          : group.platform === 'telegram'
+                          ? 'Telegram'
+                          : group.platform === 'facebook'
+                          ? 'Facebook Group'
+                          : ''}
                       </div>
                       {group.tags && Array.isArray(group.tags) && group.tags.length > 0 && (
                         <div className="flex gap-2 flex-wrap mb-2 justify-center">
@@ -500,19 +570,28 @@ export default function Page() {
 
       {/* Cowork Map CTA Banner */}
       <div className="max-w-4xl mx-auto px-6 mb-8">
-        <div className="rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 p-6"
+        <div
+          className="w-full rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 p-6"
           style={{
             background: 'var(--card-bg)',
             border: '1.5px solid var(--card-border)'
-          }}>
-          <div className="flex-1 text-left">
-            <h3 className="text-lg md:text-xl font-semibold mb-1" style={{ color: 'var(--foreground)' }}>Best Coworking Spots on Koh Phangan</h3>
-            <p className="text-sm mb-2 max-w-xl" style={{ color: 'var(--foreground)', opacity: 0.85 }}>
-              Explore a curated map of the island's top cafes, coworking spaces, and friendly work spots. Find your next favorite place to get things done!
-            </p>
+          }}
+        >
+          {/* <div className="w-20 h-20 md:w-24 md:h-24 rounded-[10px] flex-shrink-0" style={{ background: 'var(--card-border)' }}></div> */}
+          <div className="flex-1 pb-2 flex flex-col justify-start items-start gap-1 min-w-0">
+            <div className="self-stretch flex flex-col justify-start items-start">
+              <div className="self-stretch text-lg md:text-xl font-semibold leading-7" style={{ color: 'var(--foreground)', fontFamily: 'var(--font-source-code-pro), monospace' }}>
+                Best Coworking Spots on Koh Phangan
+              </div>
+            </div>
+            <div className="w-full max-w-xl opacity-90 flex flex-col justify-start items-start">
+              <div className="self-stretch text-sm font-normal leading-tight" style={{ color: 'var(--foreground)', fontFamily: 'var(--font-source-code-pro), monospace' }}>
+                Explore a curated map of the island's top cafes, coworking spaces, and friendly work spots. Find your next favorite place to get things done!
+              </div>
+            </div>
           </div>
           <a
-            href="https://maps.app.goo.gl/zJmTdoGuw11tkJyY7"
+            href="https://maps.app.goo.gl/xc8ARnzBA4wKMMHt5"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-2 rounded-lg font-semibold text-sm shadow border transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"

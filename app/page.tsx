@@ -179,38 +179,44 @@ export default function Page() {
     // Add more locations as needed
   ];
 
-  // Set the current location (change index as needed)
-  const currentLocation = eventLocations[0];
+  // Helper to check if today is Thursday and after 4pm
+  function isTodayThursdayAfter4pm() {
+    const now = new Date();
+    return now.getDay() === 4 && now.getHours() >= 16;
+  }
 
-  // ICS file content for the event (single occurrence, current event date, location is currentLocation)
-  // Calculate next Thursday's date in YYYYMMDD format
-  function getNextThursdayDateString() {
+  // Calculate the event date and location
+  let eventDateObj;
+  let eventLocationForDisplay;
+  if (isTodayThursdayAfter4pm()) {
+    // After 4pm on Thursday, show next week's event and location TBD
+    eventDateObj = new Date();
+    eventDateObj.setDate(eventDateObj.getDate() + 7 - ((eventDateObj.getDay() - 4 + 7) % 7)); // next Thursday
+    eventLocationForDisplay = { name: 'TBD', address: 'Location TBD', mapsUrl: '#' };
+  } else {
+    // If today is Thursday before 4pm, or any other day, show the next event (today if Thursday before 4pm)
     const today = new Date();
     const dayOfWeek = today.getDay();
-    const daysUntilThursday = (4 - dayOfWeek + 7) % 7 || 7;
-    const nextThursday = new Date(today);
-    nextThursday.setDate(today.getDate() + daysUntilThursday);
-    const yyyy = nextThursday.getFullYear();
-    const mm = String(nextThursday.getMonth() + 1).padStart(2, '0');
-    const dd = String(nextThursday.getDate()).padStart(2, '0');
-    return `${yyyy}${mm}${dd}`;
+    let daysUntilThursday = 4 - dayOfWeek;
+    if (daysUntilThursday < 0) daysUntilThursday += 7;
+    if (daysUntilThursday === 0 && today.getHours() < 16) {
+      eventDateObj = today;
+      eventLocationForDisplay = eventLocations[0];
+    } else {
+      eventDateObj = new Date(today);
+      eventDateObj.setDate(today.getDate() + daysUntilThursday);
+      eventLocationForDisplay = eventLocations[0];
+    }
   }
-  const eventDate = getNextThursdayDateString();
-  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:${eventDate}T100000\nDTEND;TZID=Asia/Bangkok:${eventDate}T160000\nLOCATION:${currentLocation.address} (${currentLocation.mapsUrl})\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed setting. For more details check our website: www.kpgcommunity.com\nEND:VEVENT\nEND:VCALENDAR`;
+  const monthShort = eventDateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const dayNum = eventDateObj.getDate().toString().padStart(2, '0');
+
+  // ICS file content for the event (single occurrence, current event date, location is eventLocationForDisplay)
+  const yyyy = eventDateObj.getFullYear();
+  const mm = String(eventDateObj.getMonth() + 1).padStart(2, '0');
+  const dd = String(eventDateObj.getDate()).padStart(2, '0');
+  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:KPG Co-Work & Connect — Weekly Coworking Meetup\nDTSTART;TZID=Asia/Bangkok:${yyyy}${mm}${dd}T100000\nDTEND;TZID=Asia/Bangkok:${yyyy}${mm}${dd}T160000\nLOCATION:${eventLocationForDisplay.address} (${eventLocationForDisplay.mapsUrl})\nDESCRIPTION:Join our friendly coworking circle! Connect with fellow nomads, share ideas, and work alongside like-minded souls in a relaxed setting. For more details check our website: www.kpgcommunity.com\nEND:VEVENT\nEND:VCALENDAR`;
   const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
-
-  // Calculate next Thursday's date
-  function getNextThursday() {
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const daysUntilThursday = (4 - dayOfWeek + 7) % 7 || 7;
-    const nextThursday = new Date(today);
-    nextThursday.setDate(today.getDate() + daysUntilThursday);
-    return nextThursday;
-  }
-  const nextThursday = getNextThursday();
-  const monthShort = nextThursday.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-  const dayNum = nextThursday.getDate().toString().padStart(2, '0');
 
   // Meet the Hosts data
   const hosts = [
@@ -303,13 +309,13 @@ export default function Page() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
                   <a
-                    href={currentLocation.mapsUrl}
+                    href={eventLocationForDisplay.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-green-600 focus:text-green-700 transition-colors"
                     style={{ color: 'var(--foreground)', textDecoration: 'none' }}
                   >
-                    {currentLocation.address}
+                    {eventLocationForDisplay.address}
                   </a>
                 </div>
                 <div
@@ -377,7 +383,7 @@ export default function Page() {
                     Add to Calendar
                   </a>
                   <a
-                    href={currentLocation.mapsUrl}
+                    href={eventLocationForDisplay.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"

@@ -167,9 +167,9 @@ export default function Page() {
   // Internal database of event locations
   const eventLocations = [
     {
-      name: "Tiki Beach",
-      address: "Tiki Beach, Koh Phangan",
-      mapsUrl: "https://maps.app.goo.gl/xc8ARnzBA4wKMMHt5"
+      name: "Q's Cafe",
+      address: "Q's Cafe, Srithanu, Koh Phangan",
+      mapsUrl: "https://share.google/9nYKEn5PsS1duQpYv"
     },
     {
       name: "Martial Arts Academy",

@@ -146,6 +146,16 @@ export default function Page() {
       category: 'visa',
       // tags: ['Facebook Group'], // Removed Facebook Group tag
     },
+    {
+      id: 8,
+      name: "Q's Community Events",
+      subtitle: "WhatsApp group for Q's Cafe community events and updates",
+      platform: 'whatsapp',
+      link: 'https://chat.whatsapp.com/Cfw6zJrSxJZ0s8JutLnlgO?mode=ac_t',
+      emoji: '☕️',
+      category: 'social',
+      // No tags needed for now
+    },
   ];
 
   const groupCategories = [
@@ -179,35 +189,15 @@ export default function Page() {
     // Add more locations as needed
   ];
 
-  // Helper to check if today is Thursday and after 4pm
-  function isTodayThursdayAfter4pm() {
-    const now = new Date();
-    return now.getDay() === 4 && now.getHours() >= 16;
-  }
-
-  // Calculate the event date and location
-  let eventDateObj;
-  let eventLocationForDisplay;
-  if (isTodayThursdayAfter4pm()) {
-    // After 4pm on Thursday, show next week's event and location TBD
-    eventDateObj = new Date();
-    eventDateObj.setDate(eventDateObj.getDate() + 7 - ((eventDateObj.getDay() - 4 + 7) % 7)); // next Thursday
-    eventLocationForDisplay = { name: 'TBD', address: 'Location TBD', mapsUrl: '#' };
-  } else {
-    // If today is Thursday before 4pm, or any other day, show the next event (today if Thursday before 4pm)
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    let daysUntilThursday = 4 - dayOfWeek;
-    if (daysUntilThursday < 0) daysUntilThursday += 7;
-    if (daysUntilThursday === 0 && today.getHours() < 16) {
-      eventDateObj = today;
-      eventLocationForDisplay = eventLocations[0];
-    } else {
-      eventDateObj = new Date(today);
-      eventDateObj.setDate(today.getDate() + daysUntilThursday);
-      eventLocationForDisplay = eventLocations[0];
-    }
-  }
+  // Always show event location as TBD
+  const eventLocationForDisplay = { name: 'TBD', address: 'Location TBD', mapsUrl: '#' };
+  const today = new Date();
+  // Next Thursday logic for event date
+  const dayOfWeek = today.getDay();
+  let daysUntilThursday = 4 - dayOfWeek;
+  if (daysUntilThursday < 0) daysUntilThursday += 7;
+  const eventDateObj = new Date(today);
+  eventDateObj.setDate(today.getDate() + daysUntilThursday);
   const monthShort = eventDateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
   const dayNum = eventDateObj.getDate().toString().padStart(2, '0');
 
@@ -308,15 +298,7 @@ export default function Page() {
                 <h3 className="text-lg md:text-xl font-semibold mb-1 leading-relaxed" style={{ color: 'var(--foreground)' }}>KPG Co-Work & Connect — Weekly Coworking Meetup</h3>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 text-sm mb-2 leading-relaxed" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">Every Thursday · 10:00 AM – 4:00 PM ·</span>
-                  <a
-                    href={eventLocationForDisplay.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-green-600 focus:text-green-700 transition-colors"
-                    style={{ color: 'var(--foreground)', textDecoration: 'none' }}
-                  >
-                    {eventLocationForDisplay.address}
-                  </a>
+                  <span>{eventLocationForDisplay.address}</span>
                 </div>
                 <div
                   className={`transition-all duration-500 ease-in-out overflow-hidden mb-3 max-w-2xl ${detailsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
@@ -382,28 +364,7 @@ export default function Page() {
                   >
                     Add to Calendar
                   </a>
-                  <a
-                    href={eventLocationForDisplay.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--foreground)',
-                      borderColor: 'var(--foreground)',
-                    }}
-                    onMouseOver={e => {
-                      e.currentTarget.style.background = 'var(--card-border)';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    title="Show Location on Map"
-                  >
-                    Show Location
-                  </a>
+                  {/* Removed Show Location button as location is now always TBD */}
                 </div>
               </div>
             </div>
@@ -597,7 +558,7 @@ export default function Page() {
             </div>
           </div>
           <a
-            href="https://maps.app.goo.gl/xc8ARnzBA4wKMMHt5"
+            href="https://maps.app.goo.gl/khEyxazcCPRySbyv5?g_st=aw"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-2 rounded-lg font-semibold text-sm shadow border transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"

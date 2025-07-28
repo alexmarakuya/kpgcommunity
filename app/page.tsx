@@ -189,8 +189,8 @@ export default function Page() {
     // Add more locations as needed
   ];
 
-  // Always show event location as TBD
-  const eventLocationForDisplay = { name: 'TBD', address: 'Location TBD', mapsUrl: '#' };
+  // Update: Next event location is Seatara
+  const eventLocationForDisplay = { name: 'Seatara', address: 'Seatara, Koh Phangan', mapsUrl: 'https://maps.app.goo.gl/LyQZgvN54VvmPGUA7' };
   const today = new Date();
   // Next Thursday logic for event date
   const dayOfWeek = today.getDay();
@@ -364,7 +364,28 @@ export default function Page() {
                   >
                     Add to Calendar
                   </a>
-                  {/* Removed Show Location button as location is now always TBD */}
+                  <a
+                    href={eventLocationForDisplay.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
+                    style={{
+                      background: 'transparent',
+                      color: 'var(--foreground)',
+                      borderColor: 'var(--foreground)',
+                    }}
+                    onMouseOver={e => {
+                      e.currentTarget.style.background = 'var(--card-border)';
+                      e.currentTarget.style.color = 'var(--foreground)';
+                    }}
+                    onMouseOut={e => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'var(--foreground)';
+                    }}
+                    title={`Show location: ${eventLocationForDisplay.name}`}
+                  >
+                    Show Location
+                  </a>
                 </div>
               </div>
             </div>
@@ -557,28 +578,30 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <a
-            href="https://maps.app.goo.gl/khEyxazcCPRySbyv5?g_st=aw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-2 rounded-lg font-semibold text-sm shadow border transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
-            style={{
-              background: 'var(--foreground)',
-              color: 'var(--background)',
-              borderColor: 'var(--foreground)'
-            }}
-            onMouseOver={e => {
-              e.currentTarget.style.background = 'var(--card-border)';
-              e.currentTarget.style.color = 'var(--foreground)';
-            }}
-            onMouseOut={e => {
-              e.currentTarget.style.background = 'var(--foreground)';
-              e.currentTarget.style.color = 'var(--background)';
-            }}
-            title="Open Coworking Map"
-          >
-            Open Map
-          </a>
+          <div className="flex gap-2">
+            <a
+              href="https://maps.app.goo.gl/khEyxazcCPRySbyv5?g_st=aw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-2 rounded-lg font-semibold text-sm shadow border transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
+              style={{
+                background: 'transparent',
+                color: 'var(--foreground)',
+                borderColor: 'var(--foreground)'
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.background = 'var(--card-border)';
+                e.currentTarget.style.color = 'var(--foreground)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--foreground)';
+              }}
+              title="Open Coworking Map"
+            >
+              Open Map
+            </a>
+          </div>
         </div>
       </div>
 

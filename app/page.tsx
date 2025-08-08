@@ -189,8 +189,8 @@ export default function Page() {
     // Add more locations as needed
   ];
 
-  // Update: Next event location is Seatara
-  const eventLocationForDisplay = { name: 'Seatara', address: 'Seatara, Koh Phangan', mapsUrl: 'https://maps.app.goo.gl/LyQZgvN54VvmPGUA7' };
+  // Update: Next event location is TBD
+  const eventLocationForDisplay = { name: "TBD", address: "TBD", mapsUrl: '#' };
   const today = new Date();
   // Next Thursday logic for event date
   const dayOfWeek = today.getDay();
@@ -675,6 +675,52 @@ export default function Page() {
         </div>
       </footer>
       {/* Removed Analytics component */}
+      {/* Floating Bottom Navigation Tab (Mobile) */}
+      {/*
+      <nav
+        className="fixed bottom-0 left-0 w-full z-50 flex md:hidden justify-center items-center bg-[var(--card-bg)] border-t border-[var(--card-border)] shadow-lg"
+        style={{
+          height: 64,
+          boxShadow: '0 -2px 12px 0 rgba(0,0,0,0.06)',
+        }}
+        role="navigation"
+        aria-label="Bottom Navigation"
+      >
+        <div className="flex gap-2 w-full justify-center items-center">
+          <a
+            href="/"
+            className="flex flex-col items-center justify-center py-2 px-3 text-xs font-semibold transition-colors border-t-4 border-[var(--foreground)]"
+            style={{
+              minWidth: 70,
+              maxWidth: 90,
+              borderTopWidth: 4,
+              borderTopColor: 'var(--foreground)',
+              color: 'var(--foreground)',
+              opacity: 1,
+              background: 'transparent',
+            }}
+            aria-current="page"
+          >
+            <svg className="w-6 h-6 mb-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>
+            Community
+          </a>
+          <a
+            href="/coworking"
+            className="flex flex-col items-center justify-center py-2 px-3 text-xs font-semibold transition-colors border-t-4 border-transparent"
+            style={{
+              minWidth: 70,
+              maxWidth: 90,
+              color: 'var(--foreground)',
+              opacity: 0.6,
+              background: 'transparent',
+            }}
+          >
+            <svg className="w-6 h-6 mb-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21c-4.418 0-8-5.373-8-10a8 8 0 1116 0c0 4.627-3.582 10-8 10zm0-7a3 3 0 100-6 3 3 0 000 6z" /></svg>
+            Places
+          </a>
+        </div>
+      </nav>
+      */}
     </div>
   );
 }

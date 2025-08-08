@@ -13,6 +13,18 @@ const sourceCodePro = Source_Code_Pro({
 
 // Add a type for group objects
 
+/**
+ * KPG Community Page Component
+ * 
+ * Features:
+ * - Dynamic event location display with conditional "Show Location" button
+ * - When eventLocationForDisplay is set to "TBD" or invalid, the location button is hidden
+ * - Automatic next Thursday calculation for weekly events
+ * - Theme toggle (light/dark mode)
+ * - Filterable community groups
+ * - Mobile-responsive design
+ */
+
 type Group = {
   id: number;
   name: string;
@@ -191,6 +203,16 @@ export default function Page() {
 
   // Update: Next event location is TBD
   const eventLocationForDisplay = { name: "TBD", address: "TBD", mapsUrl: '#' };
+  
+  // Helper function to check if location is valid (not TBD, empty, or placeholder)
+  // Used to conditionally show/hide the "Show Location" button
+  const hasValidLocation = (location: { name: string; address: string; mapsUrl: string }) => {
+    return location.name !== "TBD" && 
+           location.address !== "TBD" && 
+           location.mapsUrl !== '#' && 
+           location.name.trim() !== '' && 
+           location.address.trim() !== '';
+  };
   const today = new Date();
   // Next Thursday logic for event date
   const dayOfWeek = today.getDay();
@@ -364,28 +386,31 @@ export default function Page() {
                   >
                     Add to Calendar
                   </a>
-                  <a
-                    href={eventLocationForDisplay.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--foreground)',
-                      borderColor: 'var(--foreground)',
-                    }}
-                    onMouseOver={e => {
-                      e.currentTarget.style.background = 'var(--card-border)';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'var(--foreground)';
-                    }}
-                    title={`Show location: ${eventLocationForDisplay.name}`}
-                  >
-                    Show Location
-                  </a>
+                  {/* Show Location button - only display when location is valid (not TBD or empty) */}
+                  {hasValidLocation(eventLocationForDisplay) && (
+                    <a
+                      href={eventLocationForDisplay.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block px-4 py-1.5 rounded-lg border font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-offset-2 text-center"
+                      style={{
+                        background: 'transparent',
+                        color: 'var(--foreground)',
+                        borderColor: 'var(--foreground)',
+                      }}
+                      onMouseOver={e => {
+                        e.currentTarget.style.background = 'var(--card-border)';
+                        e.currentTarget.style.color = 'var(--foreground)';
+                      }}
+                      onMouseOut={e => {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.color = 'var(--foreground)';
+                      }}
+                      title={`Show location: ${eventLocationForDisplay.name}`}
+                    >
+                      Show Location
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

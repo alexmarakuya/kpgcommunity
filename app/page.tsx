@@ -201,8 +201,8 @@ export default function Page() {
     // Add more locations as needed
   ];
 
-  // Update: Next event location is TBD
-  const eventLocationForDisplay = { name: "TBD", address: "TBD", mapsUrl: '#' };
+  // Update: Next event location is Rong Cafe in Ban Tai
+  const eventLocationForDisplay = { name: "Rong Cafe", address: "Rong Cafe, Ban Tai, Koh Phangan", mapsUrl: 'https://maps.app.goo.gl/x55R7Bbv46AxpSe58' };
   
   // Helper function to check if location is valid (not TBD, empty, or placeholder)
   // Used to conditionally show/hide the "Show Location" button
